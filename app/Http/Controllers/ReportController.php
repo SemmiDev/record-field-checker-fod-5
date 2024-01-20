@@ -11,9 +11,15 @@ class ReportController extends Controller
     {
         $filterBy = $request->get('filterBy'); // adjust_stuffing_box, top_soil, csrb
         $status = $request->get('status'); // yes, no
-        $date = $request->get('date'); // 2021-01-01
-        if ($date) {
-            $date = date('Y-m-d', strtotime($date));
+
+        $fromDate = $request->get('fromDate'); // 2021-01-01
+        if ($fromDate) {
+            $fromDate = date('Y-m-d', strtotime($fromDate));
+        }
+
+        $toDate = $request->get('toDate'); // 2021-01-01
+        if ($toDate) {
+            $toDate = date('Y-m-d', strtotime($toDate));
         }
 
         $names = DB::table('names')->distinct()->get();
@@ -24,8 +30,11 @@ class ReportController extends Controller
                     $name->count = DB::table('checker_fods')
                         ->where('name_id', $name->id)
                         ->where('adjust_stuffing_box', 1)
-                        ->when($date, function ($query, $date) {
-                            return $query->whereDate('date', $date);
+                        ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
                         })
                         ->count() ?? 0;
                 }
@@ -33,8 +42,11 @@ class ReportController extends Controller
                 foreach ($names as $name) {
                     $name->count = DB::table('checker_fods')->where('name_id', $name->id)
                         ->where('adjust_stuffing_box', 0)
-                        ->when($date, function ($query, $date) {
-                            return $query->whereDate('date', $date);
+                          ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
                         })
                         ->count() ?? 0;
                 }
@@ -43,16 +55,22 @@ class ReportController extends Controller
             if ($status == 1) {
                 foreach ($names as $name) {
                     $name->count = DB::table('checker_fods')->where('name_id', $name->id)->where('top_soil', 1)
-                        ->when($date, function ($query, $date) {
-                            return $query->whereDate('date', $date);
+                          ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
                         })
                         ->count() ?? 0;
                 }
             } else {
                 foreach ($names as $name) {
                     $name->count = DB::table('checker_fods')->where('name_id', $name->id)->where('top_soil', 0)
-                        ->when($date, function ($query, $date) {
-                            return $query->whereDate('date', $date);
+                          ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
                         })
                         ->count() ?? 0;
                 }
@@ -61,16 +79,22 @@ class ReportController extends Controller
             if ($status == 1) {
                 foreach ($names as $name) {
                     $name->count = DB::table('checker_fods')->where('name_id', $name->id)->where('csrb', 1)
-                        ->when($date, function ($query, $date) {
-                            return $query->whereDate('date', $date);
+                          ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
                         })
                         ->count() ?? 0;
                 }
             } else {
                 foreach ($names as $name) {
                     $name->count = DB::table('checker_fods')->where('name_id', $name->id)->where('csrb', 0)
-                        ->when($date, function ($query, $date) {
-                            return $query->whereDate('date', $date);
+                        ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
                         })
                         ->count() ?? 0;
                 }
@@ -90,19 +114,28 @@ class ReportController extends Controller
 
         foreach ($names2 as $name) {
             $name->countCSRB = DB::table('checker_fods')->where('name_id', $name->id)->where('csrb', 1)
-                ->when($date, function ($query, $date) {
-                    return $query->whereDate('date', $date);
-                })
+                ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
+                        })
                 ->count() ?? 0;
             $name->countTopSoil = DB::table('checker_fods')->where('name_id', $name->id)->where('top_soil', 1)
-                ->when($date, function ($query, $date) {
-                    return $query->whereDate('date', $date);
-                })
+                ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
+                        })
                 ->count() ?? 0;
             $name->countAdjustStuffingBox = DB::table('checker_fods')->where('name_id', $name->id)->where('adjust_stuffing_box', 1)
-                ->when($date, function ($query, $date) {
-                    return $query->whereDate('date', $date);
-                })
+                ->when($fromDate, function ($query, $fromDate) {
+                            return $query->whereDate('date', '>=', $fromDate);
+                        })
+                        ->when($toDate, function ($query, $toDate) {
+                            return $query->whereDate('date', '<=', $toDate);
+                        })
                 ->count() ?? 0;
 
             $namesCRSB[] = [

@@ -1,8 +1,15 @@
 <x-app-layout>
         <div class="flex justify-between">
             <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">Data Names</h1>
-            <a href="{{ route('names.create') }}"
-                class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">Tambah</a>
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('names.create') }}"
+                       class="focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">Tambah</a>
+
+                    <a href="{{ route('names.import') }}"
+                       class="focus:outline-none text-white bg-sky-500 hover:bg-sky-600 focus:ring-4 focus:ring-sky-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-sky-600 dark:hover:bg-sky-700 dark:focus:ring-sky-900">
+                        Import dari Excel atau CSV
+                    </a>
+            </div>
         </div>
 
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

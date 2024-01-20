@@ -29,12 +29,17 @@
             </option>
         </select>
 
-        <label for="date" class="block text-sm font-medium text-gray-600 mt-2 mb-1">Date:</label>
-        <input type="date" name="date" id="date"
+        <label for="fromDate" class="block text-sm font-medium text-gray-600 mt-2 mb-1">Dari Tanggal:</label>
+        <input type="date" name="fromDate" id="fromDate"
                class="w-full border p-2 rounded-md focus:outline-none focus:border-blue-300"
-               value="{{ request()->get('date') }}">
+               value="{{ request()->get('fromDate') }}">
 
-        <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Apply Filters
+        <label for="toDate" class="block text-sm font-medium text-gray-600 mt-2 mb-1">Sampai Tanggal:</label>
+        <input type="date" name="toDate" id="toDate"
+               class="w-full border p-2 rounded-md focus:outline-none focus:border-blue-300"
+               value="{{ request()->get('toDate') }}">
+
+        <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Terapkan Filter
         </button>
     </form>
 

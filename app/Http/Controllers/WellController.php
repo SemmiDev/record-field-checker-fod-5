@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Import\WellImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Import\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class WellController extends Controller
 {
@@ -64,5 +67,22 @@ class WellController extends Controller
         }
 
         return redirect()->back()->with('toast_success', 'Well deleted successfully');
+    }
+
+    public function import() {
+        return view('well.import');
+    }
+
+    public function importProcess(Request $request) {
+        $file = $request->file('file-import');
+        $extension = $file->getClientOriginalExtension();
+
+        if ($extension == 'csv') {
+            Excel::import(new WellImport, $file, null, \Maatwebsite\Excel\Excel::CSV);
+        } else {
+            Excel::import(new WellImport, $file, null, \Maatwebsite\Excel\Excel::XLSX);
+        }
+
+        return redirect()->route('wells.index')->with('toast_success', 'Wells imported successfully');
     }
 }

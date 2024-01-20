@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Import\NameImport;
+use App\Import\WellImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class NameController extends Controller
 {
@@ -47,5 +50,22 @@ class NameController extends Controller
     {
         DB::table('names')->delete($id);
         return redirect()->back()->with('toast_success', 'Name deleted successfully');
+    }
+
+    public function import() {
+        return view('name.import');
+    }
+
+    public function importProcess(Request $request) {
+        $file = $request->file('file-import');
+        $extension = $file->getClientOriginalExtension();
+
+        if ($extension == 'csv') {
+            Excel::import(new NameImport, $file, null, \Maatwebsite\Excel\Excel::CSV);
+        } else {
+            Excel::import(new NameImport, $file, null, \Maatwebsite\Excel\Excel::XLSX);
+        }
+
+        return redirect()->route('names.index')->with('toast_success', 'Names imported successfully');
     }
 }
