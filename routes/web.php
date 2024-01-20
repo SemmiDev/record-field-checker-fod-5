@@ -15,10 +15,19 @@ Route::get('/', function () {
     $totalNames = DB::table('names')->count();
     $totalTeams = DB::table('teams')->count();
 
+    $checkfods = DB::table('checker_fods')
+        ->join('wells', 'checker_fods.well_id', '=', 'wells.id')
+        ->join('names', 'checker_fods.name_id', '=', 'names.id')
+        ->join('teams', 'checker_fods.team_id', '=', 'teams.id')
+        ->select('checker_fods.*', 'wells.name as well_name', 'names.name as name_name', 'teams.name as team_name')
+        ->orderBy('checker_fods.created_at', 'desc')
+        ->get();
+
     return view('dashboard', [
         'totalWells' => $totalWells,
         'totalNames' => $totalNames,
         'totalTeams' => $totalTeams,
+        'checkfods' => $checkfods,
     ]);
 })->name('dashboard');
 
@@ -45,6 +54,9 @@ Route::delete('/wells/{id}', [WellController::class, 'destroy'])->name('wells.de
 
 Route::get('/checker-fods/create', [CheckerFodsController::class, 'create'])->name('checker-fods.create');
 Route::post('/checker-fods', [CheckerFodsController::class, 'store'])->name('checker-fods.store');
+Route::get('/checker-fods/{id}/edit', [CheckerFodsController::class, 'edit'])->name('checker-fods.edit');
+Route::put('/checker-fods/{id}', [CheckerFodsController::class, 'update'])->name('checker-fods.update');
+Route::delete('/checker-fods/{id}', [CheckerFodsController::class, 'destroy'])->name('checker-fods.destroy');
 
 Route::get("/reports", [ReportController::class, 'index'])->name('reports.index');
 
@@ -64,4 +76,4 @@ Route::get("/exports/exportCsrb", [ExportController::class, 'exportCsrb'])->name
 //     Route::put('/account', [AccountController::class, 'update'])->name('account.update');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

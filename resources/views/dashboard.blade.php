@@ -1,18 +1,5 @@
 <x-app-layout>
-    <div class="flex justify-end">
-        <a href="{{ route('checker-fods.create') }}"
-            class="-mt-10 flex gap-2 items-center focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                <path fill-rule="evenodd"
-                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
-                    clip-rule="evenodd" />
-            </svg>
-            Tambah Data
-        </a>
-    </div>
-
-    <div class="flex gap-4 items-center mt-5">
-
+    <div class="flex gap-4 items-center">
         <div
             class="max-w-xs p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div class="flex justify-between items-center gap-5">
@@ -66,7 +53,6 @@
                             d="M17 11h-2.722L8 17.278a5.512 5.512 0 0 1-.9.722H17a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1ZM6 0H1a1 1 0 0 0-1 1v13.5a3.5 3.5 0 1 0 7 0V1a1 1 0 0 0-1-1ZM3.5 15.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM16.132 4.9 12.6 1.368a1 1 0 0 0-1.414 0L9 3.55v9.9l7.132-7.132a1 1 0 0 0 0-1.418Z" />
                     </svg>
 
-
                 </div>
             </div>
         </div>
@@ -101,6 +87,119 @@
 
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="mt-12">
+
+        <div class="flex items-center justify-end">
+            <a href="{{ route('checker-fods.create') }}"
+                class="flex gap-2 w-fit items-center focus:outline-none text-white bg-green-500 hover:bg-green-600 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z"
+                        clip-rule="evenodd" />
+                </svg>
+                Tambah Data
+            </a>
+        </div>
+
+        <div class="relative mt-5 overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 text-center py-3">
+                            No
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            Name
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            Well
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            Team
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            Date
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            Adjust Stuffing Box
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            Top Soil
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+                            CRSB
+                        </th>
+                        <th scope="col" class="px-6 text-center py-3">
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($checkfods as $data)
+                        <tr
+                            class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                            <th scope="row" class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ $loop->iteration }}
+                            </th>
+                            <th class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $data->name_name }}
+                            </th>
+                            <td class="px-6 text-center py-4">
+                                {{ $data->well_name }}
+                            </td>
+                            <td class="px-6 text-center py-4">
+                                {{ $data->team_name }}
+                            </td>
+                            <td class="px-6 text-center py-4">
+                                {{ \Carbon\Carbon::parse($data->date)->format('d M Y') }}
+                            </td>
+                            <td class="px-6 text-center py-4">
+                                {{ $data->adjust_stuffing_box == 1 ? 'Yes' : 'No' }}
+                            </td>
+                            <td class="px-6 text-center py-4">
+                                {{ $data->top_soil == 1 ? 'Yes' : 'No' }}
+                            </td>
+                            <td class="px-6 text-center py-4">
+                                {{ $data->csrb  == 1 ? 'Yes' : 'No' }}
+                            </td>
+
+                            <td class="px-6 py-4 flex items-center">
+                                <a
+                                href="{{ route('checker-fods.edit', [
+                                    'id' => $data->id,
+                                ]) }}"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                    Edit
+                                </a>
+                                <form
+                                    action="{{ route('checker-fods.destroy', [
+                                        'id' => $data->id,
+                                    ]) }}"
+                                    method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                        Hapus
+                                    </button>
+
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="px-6 py-4 whitespace-nowrap text-center">
+                                <div class="flex flex-col items-center justify-center">
+                                    <span class="mt-2 text-sm text-gray-500">Belum ada data</span>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
 </x-app-layout>

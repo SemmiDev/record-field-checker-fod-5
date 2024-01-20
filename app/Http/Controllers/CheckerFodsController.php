@@ -39,4 +39,43 @@ class CheckerFodsController extends Controller
 
         return redirect()->route('dashboard')->with('toast_success', 'Checker FOD created successfully');
     }
+
+    public function destroy($id) {
+        DB::table('checker_fods')->where('id', $id)->delete();
+        return redirect()->route('dashboard')->with('toast_success', 'Checker FOD deleted successfully');
+    }
+
+    public function edit($id)
+    {
+        $checkerFod = DB::table('checker_fods')->where('id', $id)->first();
+        $wells = DB::table('wells')->get();
+        $teams = DB::table('teams')->get();
+        $names = DB::table('names')->get();
+
+        return view('checker-fods.edit', [
+            'checkerFod' => $checkerFod,
+            'wells' => $wells,
+            'teams' => $teams,
+            'names' => $names,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->validate([
+            'name_id' => 'required',
+            'team_id' => 'required',
+            'well_id' => 'required',
+            'date' => 'required',
+            'adjust_stuffing_box' => 'required',
+            'top_soil' => 'required',
+            'csrb' => 'required',
+        ]);
+
+        $data['updated_at'] = now();
+
+        DB::table('checker_fods')->where('id', $id)->update($data);
+
+        return redirect()->route('dashboard')->with('toast_success', 'Checker FOD updated successfully');
+    }
 }
