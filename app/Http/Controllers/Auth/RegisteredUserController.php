@@ -34,36 +34,15 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required'],
         ]);
 
         $data = $request->all();
 
-
-        $totalPasien = Pasien::count() + 1;
-        $y = date('Y');
-        $m = date('m');
-
-        $no_rm = $y . $m . '-' . $totalPasien;
-
-
-        $pasien = Pasien::create([
-            'nama' => $data['name'],
-            'alamat' => $data['alamat'],
-            'no_ktp' => $data['no_ktp'],
-            'no_hp' => $data['no_hp'],
-            'no_rm' => $no_rm,
-        ]);
-
-        $username = strtolower(str_replace(' ', '_', $request->get('name'))) . '_p' . $pasien->id;
-
         $user = User::create([
             'name' => $data['name'],
-            'username' => $username,
-            'no_ktp' => $data['no_ktp'],
-            'no_hp' => $data['no_hp'],
-            'alamat' => $data['alamat'],
-            'role' => "Pasien",
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
 
@@ -71,6 +50,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('dashboard');
     }
 }

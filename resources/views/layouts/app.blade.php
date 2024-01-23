@@ -21,8 +21,8 @@
         }
     </style>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -139,7 +139,7 @@
                             </a>
                         </li>
                         <li
-                            class="{{ request()->routeIs('reports.*') ? 'bg-sky-600 rounded-lg' : 'bg-[#214b8e] rounded-lg' }}">
+                            class="{{ request()->routeIs('reports.index') ? 'bg-sky-600 rounded-lg' : 'bg-[#214b8e] rounded-lg' }}">
                             <a href="{{ route('reports.index') }}"
                                 class="flex items-center p-2 text-white rounded-lg dark:text-white group">
 
@@ -154,6 +154,27 @@
                                 <span class="flex-1 ms-3 whitespace-nowrap">Report</span>
                             </a>
                         </li>
+
+                        <li
+                        class="{{ request()->routeIs('reports.wells') ? 'bg-sky-600 rounded-lg' : 'bg-[#214b8e] rounded-lg' }}">
+                        <a href="{{ route('reports.wells') }}"
+                            class="flex items-center p-2 text-white rounded-lg dark:text-white group">
+
+                            <svg class="flex-shrink-0 w-5 h-5 text-gray-300 transition duration-75 group-hover:text-gray-100"
+                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 18 16">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="M1 1v14h16M4 10l3-4 4 4 5-5m0 0h-3.207M16 5v3.207" />
+                            </svg>
+
+
+                            <span class="flex-1 ms-3 whitespace-nowrap">Report By Wells</span>
+                        </a>
+                    </li>
+
+
+
+
                         <li
                             class="{{ request()->routeIs('exports.index') ? 'bg-sky-600 rounded-lg' : 'bg-[#214b8e] rounded-lg' }}">
                             <a href="{{ route('exports.index') }}"
@@ -170,6 +191,25 @@
                                 <span class="flex-1 ms-3 whitespace-nowrap">Export</span>
                             </a>
                         </li>
+
+
+                        <li class="bg-[#214b8e] rounded-lg">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); this.closest('form').submit();"
+                                    class="flex items-center p-2 text-white rounded-lg dark:text-white group">
+                                    <svg class="flex-shrink-0 w-5 h-5 text-gray-300 transition duration-75 group-hover:text-gray-100"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                        viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16Zm1-10H5a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2Z" />
+                                    </svg>
+                                    <span class="flex-1 ms-3 whitespace-nowrap">Logout</span>
+                                </a>
+                            </form>
+                        </li>
+
                     </ul>
                 </div>
             </aside>
