@@ -134,6 +134,7 @@ class ReportController extends Controller
             $wellNames[] = $well->name;
         }
 
+
         return view('report.well', [
             'wells' => $wellNames,
             'userData' => $userData,

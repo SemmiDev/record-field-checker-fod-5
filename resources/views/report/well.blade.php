@@ -27,6 +27,39 @@
         </button>
     </form>
 
+
+    <table class="min-w-full bg-white border border-gray-300 mb-4">
+        <thead>
+            <tr>
+                <th class="py-2 px-4 border-b">No</th>
+                <th class="py-2 px-4 border-b">Nama</th>
+                @foreach ($wells as $well)
+                    <th class="py-2 px-4 border-b">{{ $well }}</th>
+                @endforeach
+                <th class="py-2 px-4 border-b">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($userData as $user)
+                <tr>
+                    <td class="py-2 px-4 border-b">{{ $loop->iteration }}</td>
+                    <td class="py-2 px-4 border-b">{{ $user['name'] }}</td>
+                    @foreach ($user['data'] as $data)
+                        <td class="py-2 px-4 border-b">{{ $data }}</td>
+                    @endforeach
+                    <td class="py-2 px-4 border-b">{{ array_sum($user['data']) }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+        {{-- <tfoot>
+            <tr>
+                <th colspan="{{ count($wells) + 2 }}" class="py-2 px-4 border-b">Total</th>
+                <th class="py-2 px-4 border-b">{{ array_sum(array_column($userData, 'data')) }}</th>
+            </tr>
+        </tfoot> --}}
+        </tbody>
+    </table>
+
     <canvas id="myChart" height="200"></canvas>
 
     <script>
