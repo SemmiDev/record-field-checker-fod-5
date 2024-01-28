@@ -12,13 +12,28 @@
             @enderror
         </div>
 
-        <div class="mb-4">
+        {{-- <div class="mb-4">
             <label for="well_id" class="block text-sm font-medium text-gray-600">Well:</label>
             <select name="well_id" id="well_id" class="mt-1 block w-full border rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
                 @foreach ($wells as $well)
                     <option value="{{ $well->id }}">{{ $well->name }}</option>
                 @endforeach
             </select>
+            @error('well_id')
+                <p class="text-red-500 text-sm">{{ $message }}</p>
+            @enderror
+        </div> --}}
+
+        <div class="mb-4">
+            <label for="well_id" class="block text-sm font-medium text-gray-600">Well:</label>
+            <input list="wells"
+            autocomplete="off"
+            name="well_id" id="well_id" class="mt-1 block w-full border rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+            <datalist id="wells">
+                @foreach ($wells as $well)
+                    <option value="{{ $well->name }}"></option>
+                @endforeach
+            </datalist>
             @error('well_id')
                 <p class="text-red-500 text-sm">{{ $message }}</p>
             @enderror

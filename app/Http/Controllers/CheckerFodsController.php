@@ -35,6 +35,9 @@ class CheckerFodsController extends Controller
         $data['created_at'] = now();
         $data['updated_at'] = now();
 
+        $id = DB::table('wells')->where('name', $request->well_id)->first()->id;
+        $data['well_id'] = $id;
+
         DB::table('checker_fods')->insert($data);
 
         return redirect()->route('dashboard')->with('toast_success', 'Checker FOD created successfully');
@@ -73,8 +76,9 @@ class CheckerFodsController extends Controller
         ]);
 
         $data['updated_at'] = now();
-
+        $data['well_id'] = DB::table('wells')->where('name', $request->well_id)->first()->id;
         DB::table('checker_fods')->where('id', $id)->update($data);
+
 
         return redirect()->route('dashboard')->with('toast_success', 'Checker FOD updated successfully');
     }
