@@ -23,10 +23,19 @@
             class="w-full border p-2 rounded-md focus:outline-none focus:border-blue-300"
             value="{{ request()->get('toDate') }}">
 
+        <label for="selectedWells" class="block text-sm font-medium text-gray-600 mt-2 mb-1">Select Wells:</label>
+        <select name="selectedWells[]" id="selectedWells"
+            class="w-full border p-2 rounded-md focus:outline-none h-60 focus:border-blue-300" multiple>
+            @foreach ($allWells as $well)
+                <option value="{{ $well->id }}" {{ in_array($well->id, $selectedWells) ? 'selected' : '' }}>
+                    {{ $well->name }}</option>
+            @endforeach
+        </select>
+
+
         <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Terapkan Filter
         </button>
     </form>
-
 
     <table class="min-w-full bg-white border border-gray-300 mb-4">
         <thead>
@@ -42,21 +51,14 @@
         <tbody>
             @foreach ($userData as $user)
                 <tr>
-                    <td class="py-2 px-4 border-b">{{ $loop->iteration }}</td>
-                    <td class="py-2 px-4 border-b">{{ $user['name'] }}</td>
+                    <td class="py-2 px-4 text-center border-b">{{ $loop->iteration }}</td>
+                    <td class="py-2 px-4 text-center border-b">{{ $user['name'] }}</td>
                     @foreach ($user['data'] as $data)
-                        <td class="py-2 px-4 border-b">{{ $data }}</td>
+                        <td class="py-2 px-4 text-center border-b">{{ $data }}</td>
                     @endforeach
-                    <td class="py-2 px-4 border-b">{{ array_sum($user['data']) }}</td>
+                    <td class="py-2 px-4 text-center border-b">{{ array_sum($user['data']) }}</td>
                 </tr>
             @endforeach
-        </tbody>
-        {{-- <tfoot>
-            <tr>
-                <th colspan="{{ count($wells) + 2 }}" class="py-2 px-4 border-b">Total</th>
-                <th class="py-2 px-4 border-b">{{ array_sum(array_column($userData, 'data')) }}</th>
-            </tr>
-        </tfoot> --}}
         </tbody>
     </table>
 

@@ -22,8 +22,10 @@
     </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -156,21 +158,21 @@
                         </li>
 
                         <li
-                        class="{{ request()->routeIs('reports.wells') ? 'bg-sky-600 rounded-lg' : 'bg-[#214b8e] rounded-lg' }}">
-                        <a href="{{ route('reports.wells') }}"
-                            class="flex items-center p-2 text-white rounded-lg dark:text-white group">
+                            class="{{ request()->routeIs('reports.wells') ? 'bg-sky-600 rounded-lg' : 'bg-[#214b8e] rounded-lg' }}">
+                            <a href="{{ route('reports.wells') }}"
+                                class="flex items-center p-2 text-white rounded-lg dark:text-white group">
 
-                            <svg class="flex-shrink-0 w-5 h-5 text-gray-300 transition duration-75 group-hover:text-gray-100"
-                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 18 16">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="M1 1v14h16M4 10l3-4 4 4 5-5m0 0h-3.207M16 5v3.207" />
-                            </svg>
+                                <svg class="flex-shrink-0 w-5 h-5 text-gray-300 transition duration-75 group-hover:text-gray-100"
+                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 18 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M1 1v14h16M4 10l3-4 4 4 5-5m0 0h-3.207M16 5v3.207" />
+                                </svg>
 
 
-                            <span class="flex-1 ms-3 whitespace-nowrap">Report By Wells</span>
-                        </a>
-                    </li>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Report By Wells</span>
+                            </a>
+                        </li>
 
 
 

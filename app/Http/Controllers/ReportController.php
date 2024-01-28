@@ -22,9 +22,10 @@ class ReportController extends Controller
             $toDate = date('Y-m-d', strtotime($toDate));
         }
 
-        $wells = DB::table('wells')->get(); // [xx,yy,zz]
-        $userData = [];
+        $selectedWells = $request->get('selectedWells', []); // Default to empty array
+        $wells = DB::table('wells')->whereIn('id', $selectedWells)->get();
 
+        $userData = [];
         $names = DB::table('names')->distinct()->get();
 
         if ($filterBy == "adjust_stuffing_box") {
@@ -136,9 +137,12 @@ class ReportController extends Controller
 
 
         return view('report.well', [
+            'allWells' => DB::table('wells')->get(),
             'wells' => $wellNames,
+            'wellsPagination' => $wells,
             'userData' => $userData,
             'filterBy' => $filterBy,
+            'selectedWells' => $selectedWells, // Pass selected wells to the view for the dropdown
         ]);
     }
 
