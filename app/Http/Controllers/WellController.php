@@ -20,6 +20,8 @@ class WellController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|unique:wells',
+            'area' => 'nullable',
+            'arse' => 'nullable',
         ]);
 
         DB::table('wells')->insert($data);
@@ -47,6 +49,8 @@ class WellController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
+            'area' => 'nullable',
+            'arse' => 'nullable',
         ]);
 
         $affected = DB::table('wells')->where('id', $id)->update($data);

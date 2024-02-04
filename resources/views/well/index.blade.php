@@ -26,6 +26,12 @@
                 Nama
             </th>
             <th scope="col" class="px-6 py-3">
+                Area
+            </th>
+            <th scope="col" class="px-6 py-3">
+                Arse
+            </th>
+            <th scope="col" class="px-6 py-3">
                 <span class="sr-only">Aksi</span>
             </th>
         </tr>
@@ -42,6 +48,12 @@
                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ $name->name }}
                 </th>
+                <td class="px-6 py-4">
+                    {{ $name->area }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ $name->arse }}
+                </td>
                 <td class="px-6 py-4 text-right">
                     <a href="{{ route('wells.edit', ['id' => $name->id]) }}"
                        class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>

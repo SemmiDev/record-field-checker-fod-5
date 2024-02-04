@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('wells', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('area')->nullable(true)->default(null);
+            $table->string('arse')->nullable(true)->default(null);
             $table->timestamps();
         });
     }

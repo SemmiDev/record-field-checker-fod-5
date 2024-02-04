@@ -12,10 +12,15 @@ class WellImport implements ToCollection
     {
         foreach ($rows as $row)
         {
-            DB::table('wells')->updateOrInsert(
-                ['name' => $row[0]],
-                ['name' => $row[0]]
-            );
+            if (DB::table('wells')->where('name', $row[0])->exists()) {
+                continue;
+            }
+
+            DB::table('wells')->insert([
+                'name' => $row[0],
+                'area' => $row[1],
+                'arse' => $row[2],
+            ]);
         }
     }
 }
