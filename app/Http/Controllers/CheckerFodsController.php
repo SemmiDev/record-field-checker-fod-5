@@ -13,6 +13,10 @@ class CheckerFodsController extends Controller
         $teams = DB::table('teams')->get();
         $names = DB::table('names')->get();
 
+        foreach ($wells as $well) {
+            $well->name = $well->name . ' - ' . $well->area . ' - ' . $well->arse;
+        }
+
         return view('checker-fods.create', [
             'wells' => $wells,
             'teams' => $teams,
@@ -35,7 +39,8 @@ class CheckerFodsController extends Controller
         $data['created_at'] = now();
         $data['updated_at'] = now();
 
-        $id = DB::table('wells')->where('name', $request->well_id)->first()->id;
+        $well_id = explode(' - ', $request->well_id)[0];
+        $id = DB::table('wells')->where('name', $well_id)->first()->id;
         $data['well_id'] = $id;
 
         DB::table('checker_fods')->insert($data);
@@ -54,6 +59,10 @@ class CheckerFodsController extends Controller
         $wells = DB::table('wells')->get();
         $teams = DB::table('teams')->get();
         $names = DB::table('names')->get();
+
+        foreach ($wells as $well) {
+            $well->name = $well->name . ' - ' . $well->area . ' - ' . $well->arse;
+        }
 
         return view('checker-fods.edit', [
             'checkerFod' => $checkerFod,
@@ -76,7 +85,10 @@ class CheckerFodsController extends Controller
         ]);
 
         $data['updated_at'] = now();
-        $data['well_id'] = DB::table('wells')->where('name', $request->well_id)->first()->id;
+
+        $well_id = explode(' - ', $request->well_id)[0];
+
+        $data['well_id'] = DB::table('wells')->where('name', $well_id)->first()->id;
         DB::table('checker_fods')->where('id', $id)->update($data);
 
 
