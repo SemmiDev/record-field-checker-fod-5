@@ -147,8 +147,8 @@
                             <th class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{ $data->name_name }}
                             </th>
-                            <td class="px-6 text-center py-4">
-                                {{ $data->well_name }}
+                            <td class="px-6 py-4">
+                                {!! $data->well_name !!}
                             </td>
                             <td class="px-6 text-center py-4">
                                 {{ $data->team_name }}

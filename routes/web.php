@@ -25,9 +25,12 @@ Route::middleware('auth')->group(function () {
             ->join('wells', 'checker_fods.well_id', '=', 'wells.id')
             ->join('names', 'checker_fods.name_id', '=', 'names.id')
             ->join('teams', 'checker_fods.team_id', '=', 'teams.id')
-            ->select('checker_fods.*', 'wells.name as well_name', 'names.name as name_name', 'teams.name as team_name')
+            ->select('checker_fods.*',
+                DB::raw("CONCAT('Nama: ', wells.name, '<br>Area: ', wells.area, '<br>Arse: ', wells.arse) as well_name"),
+            'names.name as name_name', 'teams.name as team_name')
             ->orderBy('checker_fods.created_at', 'desc')
             ->get();
+
 
         return view('dashboard', [
             'totalWells' => $totalWells,
